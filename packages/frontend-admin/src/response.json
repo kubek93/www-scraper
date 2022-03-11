@@ -1,0 +1,18 @@
+{
+    "data": [
+        {
+            "cron": "5 * * * *",
+            "selector": ".offer-price__number",
+            "title": "BMW M3",
+            "status": "BLOCKED",
+            "url": "https://www.otomoto.pl/oferta/bmw-m3-m3-dkg-lopatki-tlumiki-hartge-carbon-dach-pdc-idealny-ID6DYeB4.html#3310ebde23"
+        },
+        {
+            "cron": "5 * * * *",
+            "selector": ".offer-price__number",
+            "title": "Porsche 911",
+            "status": "RUNNING",
+            "url": "https://www.otomoto.pl/oferta/porsche-911-porsche-911-salon-gwarancja-4-lata-bezwypadkowy-ID6DYNBT.html#4c3ff3dae3"
+        }
+    ]
+}

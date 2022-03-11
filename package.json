@@ -1,0 +1,24 @@
+{
+  "name": "www-scraper",
+  "version": "1.0.0",
+  "description": "The project is using e2e test (puppeteer), cherio, lerna, react, nodejs and few more advanced technologies to scrap interesting data from websites and compare them.",
+  "main": "index.js",
+  "scripts": {
+    "install": "lerna bootstrap",
+    "dev": "lerna run dev --stream",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kubek93/www-scraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kubek93/e2e-scraping/issues"
+  },
+  "homepage": "https://github.com/kubek93/www-scraper",
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
