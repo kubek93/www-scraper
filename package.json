@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "description": "The project is using e2e test (puppeteer), cherio, lerna, react, nodejs and few more advanced technologies to scrap interesting data from websites and compare them.",
   "main": "index.js",
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
   "scripts": {
+    "commit": "git-cz",
     "install": "lerna bootstrap",
     "dev": "lerna run dev --stream",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,6 +25,7 @@
   },
   "homepage": "https://github.com/kubek93/www-scraper",
   "devDependencies": {
+    "commitizen": "^4.2.4",
     "lerna": "^4.0.0"
   }
 }
