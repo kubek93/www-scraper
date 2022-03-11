@@ -9,9 +9,18 @@ const getQueries = () => {
     })
 }
 
-const sendResult = (queryId, value = "", isError = false) => {
-    return new Promise((resolve) => {
-        console.error('SEND RESULT: ', value);
+const formatPriceValue = value => {
+    if (!value) {
+        return 'EMPTY VALUE';
+    }
+
+    return value.replace(/[^\d,.-]/g, '').replace(',', '.');
+}
+
+const sendResult = (queryId, scrapedText = "", isError = false) => {
+    return new Promise((resolve, reject) => {
+        const value = formatPriceValue(scrapedText);
+        console.info(`SEND VALUE (isError: ${isError}): `, value);
 
         fetch(`http://localhost:5000/v1/queries/${queryId}/results`, {
             method: "POST",
@@ -20,7 +29,7 @@ const sendResult = (queryId, value = "", isError = false) => {
             },
             body: JSON.stringify({
                 isError,
-                value: value ? value.replace(/[^\d,.-]/g, '').replace(',', '.') : "EMPTY VALUE"
+                value
             })
         })
             .then(response => response.json())

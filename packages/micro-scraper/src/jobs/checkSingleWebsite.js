@@ -30,6 +30,7 @@ const checkSingleWebsite = async (queryData, browser) => {
         }
 
         await page.close();
+        await browser.close()
     } catch(error) {
         await page.close();
         await sendResult(_id, error.originalMessage ? error.originalMessage : "UNDEFINED ERROR MESSAGE", true);

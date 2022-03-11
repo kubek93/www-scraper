@@ -17,10 +17,8 @@ puppeteer.launch({
             .getQueries()
             .then(queries => {
                 queries.forEach(query => {
-                    console.log('query', query);
-
                     if (query.status === 'RUNNING') {
-                        console.log(`START TASK: "${query.name}" using CRON: "${query.cron}".`);
+                        console.info(`START TASK: "${query.name}" using CRON: "${query.cron}".`);
                         checkSingleWebsite(query, browser);
 
                         cron.schedule(query.cron, () => {
@@ -31,11 +29,11 @@ puppeteer.launch({
             });
 
         app.get('/restart', function (req, res, next) {
-            console.log('RESTART - SERVER START');
+            console.info('RESTART - SERVER START');
             browser
                 .close()
                 .then(() => {
-                    console.log('RESTART - CLOSE BROWSER');
+                    console.info('RESTART - CLOSE BROWSER');
                     res.send({ status: "ok" });
                     process.exit(1);
                 })

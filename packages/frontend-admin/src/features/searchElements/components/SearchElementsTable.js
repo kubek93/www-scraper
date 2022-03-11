@@ -64,6 +64,7 @@ const SearchElementsTable = ({numberOfRefresh}) => {
             dataIndex: 'lastResult',
             key: 'lastResult',
             ellipsis: true,
+            width: 110,
             render: (lastResult, record) => {
                 const { values } = record;
 
@@ -87,6 +88,7 @@ const SearchElementsTable = ({numberOfRefresh}) => {
             dataIndex: 'status',
             key: 'status',
             ellipsis: true,
+            width: 115,
             render: status => {
                 if (status === "RUNNING") {
                     return <Tag color="green">{status}</Tag>
@@ -103,6 +105,7 @@ const SearchElementsTable = ({numberOfRefresh}) => {
         {
             title: 'Action',
             key: 'action',
+            width: 100,
             render: (text, record) => (
               <Space size="small">
                 <Tooltip placement="top" title="Remove">
