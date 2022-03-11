@@ -5,6 +5,8 @@
 
 The main reason behind this project is an idea comparing products prices, but for sure this will be useful for many different needs. Using it you can easily check when your interesting things are discounted or generally when your interesting text will change from one to another.
 
+![Home Page](/.docs/images/www-scraper-home-page.png)
+
 ## Micro services
 
 Project is using `lerna` and because of that is splitted into many micro-services:
@@ -14,6 +16,13 @@ Project is using `lerna` and because of that is splitted into many micro-service
 - `micro-scrapper` - node deamon responsible for checking texts on pages
 
 ## Used technologies
+
+### Server
+
+- `docker` / `docker-compose`
+- `mongo-express`
+
+### Project
 
 - `lerna` - to keep project splited by functionality
 - `react` / `cra` / `antd-design` - to easy develop UI

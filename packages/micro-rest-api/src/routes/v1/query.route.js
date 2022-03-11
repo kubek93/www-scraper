@@ -48,7 +48,7 @@ router
                 const collection = req.app.locals.collection;
                 await collection.deleteMany({ _id: new mongo.ObjectID(queryId) });
 
-                res.send(queryId);
+                res.send({ queryId });
             }
             catch(err) {
                 console.error(err);

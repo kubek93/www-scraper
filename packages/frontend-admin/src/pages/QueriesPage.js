@@ -89,10 +89,10 @@ const QueriesPage = () => {
                         <Input />
                     </Form.Item>
                     <Form.Item name="status" label="Status" rules={[{ required: true }]}>
-                        <Select defaultValue="RUNNING">
-                        <Option value="RUNNING">RUNNING</Option>
-                        <Option value="CREATED">CREATED</Option>
-                        <Option value="STOPPED">STOPPED</Option>
+                        <Select>
+                            <Option value="RUNNING">RUNNING</Option>
+                            <Option value="CREATED">CREATED</Option>
+                            <Option value="STOPPED">STOPPED</Option>
                         </Select>
                     </Form.Item>
                     <Form.Item

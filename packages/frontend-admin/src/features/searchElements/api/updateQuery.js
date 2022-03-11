@@ -1,5 +1,4 @@
 const changeQueryStatus = async (queryId, body) => {
-    console.log(body);
     return new Promise((resolve) => {
         fetch(`http://localhost:5000/v1/queries?queryId=${queryId}`, {
                 method: 'PATCH',

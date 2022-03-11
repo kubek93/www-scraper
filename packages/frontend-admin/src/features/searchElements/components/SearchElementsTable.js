@@ -155,7 +155,7 @@ const SearchElementsTable = ({numberOfRefresh}) => {
                                 )},
                                 {title: 'Results', dataIndex: 'value', key: 'value'}
                             ]}
-                            rowKey={record => record._id}
+                            rowKey={record => record.date}
                             dataSource={record.values && [...record.values].reverse()}
                             size="small"
                         />

@@ -4,9 +4,7 @@ const removeQuery = async (queryId) => {
                 method: 'DELETE'
             })
             .then(response => response.json())
-            .then(data => {
-                resolve(data);
-            })
+            .then(data => resolve(data))
             .catch(error => console.error(error));
     })
 }
