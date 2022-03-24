@@ -3,18 +3,55 @@
 import dayjs from 'dayjs';
 import {Table, Space, Tooltip, Tag} from 'antd';
 import {useState,useEffect} from 'react';
-import {ArrowUpOutlined, ArrowDownOutlined, PauseCircleOutlined, PlayCircleOutlined, DeleteOutlined} from '@ant-design/icons';
+import {
+    ArrowDownOutlined,
+    ArrowUpOutlined,
+    DeleteOutlined,
+    LoadingOutlined,
+    PauseCircleOutlined,
+    PlayCircleOutlined,
+    ReloadOutlined
+} from '@ant-design/icons';
 import getQueries from '../api/getQueries';
 import updateQuery from '../api/updateQuery';
 import removeQuery from '../api/removeQuery';
+import runQueryManually from '../api/runQueryManually';
 
-const SearchElementsTable = ({numberOfRefresh}) => {
+const SearchElementsTable = ({ numberOfRefresh }) => {
+    const [waitingForFinish, setWaitingForFinish] = useState([]);
     const [dataSource, setDataSource ] = useState([]);
 
     const onRemoveClick = async (id) => {
         try {
             await removeQuery(id);
             refreshList();
+        } catch(error) {
+            console.error(error);
+        }
+    }
+
+    const updatePendingQueries = (id, action) => {
+        let updateArray = [...waitingForFinish];
+
+        if (action === 'ADD') {
+            updateArray.push(id);
+        }
+
+        if (action === 'REMOVE') {
+            updateArray.filter(queryId => queryId !== id)
+        }
+
+        setWaitingForFinish(updateArray);
+    }
+
+    const runManually = async (id) => {
+        try {
+            updatePendingQueries(id, 'ADD');
+            const response = await runQueryManually(id);
+
+            if (response.ok) {
+                updatePendingQueries(id, 'REMOVE');
+            }
         } catch(error) {
             console.error(error);
         }
@@ -111,9 +148,16 @@ const SearchElementsTable = ({numberOfRefresh}) => {
                 <Tooltip placement="top" title="Remove">
                     <a onClick={() => onRemoveClick(record._id)}><DeleteOutlined /></a>
                 </Tooltip>
-                {/* <Tooltip placement="top" title="Edit">
-                    <a><EditOutlined /></a>
-                </Tooltip> */}
+                {waitingForFinish.includes(record._id) && (
+                    <Tooltip placement="top" title="Query working...">
+                        <a onClick={() => {}}><LoadingOutlined /></a>
+                    </Tooltip>
+                )}
+                {record.status === "RUNNING" && !waitingForFinish.includes(record._id) && (
+                    <Tooltip placement="top" title="Run manually">
+                        <a onClick={() => runManually(record._id)}><ReloadOutlined /></a>
+                    </Tooltip>
+                )}
                 {record.status === "RUNNING" && (
                     <Tooltip placement="top" title="Pause checking">
                         <a onClick={() => onStatusClick(record._id, 'STOPPED')}><PauseCircleOutlined /></a>

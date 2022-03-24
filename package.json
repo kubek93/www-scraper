@@ -12,7 +12,8 @@
     "commit": "git-cz",
     "install": "lerna bootstrap",
     "dev": "lerna run dev --stream",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "docker-compose up"
   },
   "repository": {
     "type": "git",

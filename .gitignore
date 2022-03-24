@@ -196,4 +196,5 @@ dist
 # CUSTOM
 TODO.md
 lerna-debug.log
+.volumes
 # CUSTOM

@@ -1,25 +1,28 @@
+const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 const { sendResult } = require('../utils/fetchMethods');
 
-const checkSingleWebsite = async (queryData, browser) => {
-    const { url, selector, _id } = queryData;
-
-    const page = await browser.newPage();
-
-    await page.setViewport({
-        width: 1600,
-        height: 900,
-        deviceScaleFactor: 1,
-    });
+const checkSingleWebsite = async (queryData) => {
+    console.info(`START TASK: "${queryData.name}" using CRON: "${queryData.cron}". Date: ${new Date()}`);
 
     try {
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-dev-shm-usage', '--single-process'],
+            headless: true,
+        });
+        const page = await browser.newPage();
+        const { url, selector, _id } = queryData;
+        await page.setViewport({
+            width: 1600,
+            height: 900,
+            deviceScaleFactor: 1,
+        });
         await page.goto(url, {
             timeout: 0
         });
 
         const content = await page.content();
         const $ = cheerio.load(content);
-        await page.waitForSelector(selector);
         const foundElement = $(selector);
 
         if (foundElement.length === 0) {
@@ -30,10 +33,13 @@ const checkSingleWebsite = async (queryData, browser) => {
         }
 
         await page.close();
-        await browser.close()
+        await browser.close();
+        console.log('BROWSER CLOSED.');
+        return { ok: true };
     } catch(error) {
         await page.close();
         await sendResult(_id, error.originalMessage ? error.originalMessage : "UNDEFINED ERROR MESSAGE", true);
+        return error;
     }
 }
 

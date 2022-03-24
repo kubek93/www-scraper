@@ -56,7 +56,7 @@ const QueriesPage = () => {
                     <SearchElementsTable numberOfRefresh={numberOfRefresh} />
                 </Col>
             </Row>
-            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+            <Modal title="Add new query" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                 <Form
                     form={form}
                     name="control-hooks"
@@ -70,6 +70,7 @@ const QueriesPage = () => {
                     <Form.Item
                         name="name"
                         label="Name"
+                        style={{ marginBottom: '10px' }}
                         rules={[{ required: true, message: 'Please input your name!' }]}
                     >
                         <Input />
@@ -77,18 +78,20 @@ const QueriesPage = () => {
                     <Form.Item
                         name="url"
                         label="URL"
+                        style={{ marginBottom: '10px' }}
                         rules={[{ required: true, message: 'Please input your url!' }]}
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         name="selector"
-                        label="Selector"
+                        label="Element HTML selector"
+                        style={{ marginBottom: '10px' }}
                         rules={[{ required: true, message: 'Please input your selector!' }]}
                     >
                         <Input />
                     </Form.Item>
-                    <Form.Item name="status" label="Status" rules={[{ required: true }]}>
+                    <Form.Item name="status" label="Status" style={{ marginBottom: '10px' }} rules={[{ required: true }]}>
                         <Select>
                             <Option value="RUNNING">RUNNING</Option>
                             <Option value="CREATED">CREATED</Option>
@@ -98,6 +101,7 @@ const QueriesPage = () => {
                     <Form.Item
                         name="cron"
                         label="CRON"
+                        style={{ marginBottom: '10px' }}
                         rules={[{ required: true, message: 'Please input your selector!' }]}
                     >
                         <Input placeholder="1 * * * *" />
@@ -105,6 +109,7 @@ const QueriesPage = () => {
                     <Form.Item
                         name="description"
                         label="Description"
+                        style={{ marginBottom: '10px' }}
                     >
                         <Input.TextArea />
                     </Form.Item>

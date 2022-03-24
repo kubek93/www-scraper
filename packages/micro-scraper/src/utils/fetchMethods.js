@@ -1,11 +1,11 @@
 const fetch = require('node-fetch');
 
 const getQueries = () => {
-    return new Promise((resolve) => {
-        fetch('http://localhost:5000/v1/queries')
+    return new Promise((resolve, reject) => {
+        fetch('http://micro-rest-api:5000/v1/queries')
             .then(response => response.json())
             .then(data => resolve(data))
-            .catch(error => console.error(error));
+            .catch(error => reject(error));
     })
 }
 
@@ -20,9 +20,9 @@ const formatPriceValue = value => {
 const sendResult = (queryId, scrapedText = "", isError = false) => {
     return new Promise((resolve, reject) => {
         const value = formatPriceValue(scrapedText);
-        console.info(`SEND VALUE (isError: ${isError}): `, value);
+        console.info('SEND VALUE', value, `, isError - ${isError}`);
 
-        fetch(`http://localhost:5000/v1/queries/${queryId}/results`, {
+        fetch(`http://micro-rest-api:5000/v1/queries/${queryId}/results`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

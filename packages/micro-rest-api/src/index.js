@@ -9,20 +9,19 @@ const app = express();
 app.use(cors()) //https://www.npmjs.com/package/cors
 app.use(express.json()); //https://expressjs.com/en/api.html#express.json
 
-
 async function main() {
-    const url = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_DB_URL}`;
-    const client = await MongoClient.connect(url);
-    const db = client.db(process.env.MONGO_DB_NAME);
-    const collection = db.collection(process.env.MONGO_DB_TABLE);
+    console.log('CONNECTING WITH DATABASE...');
+    const client = await MongoClient.connect(process.env.CONFIG_MONGODB_URL);
+    const db = client.db(process.env.CONFIG_MONGO_DB_NAME);
+    const collection = db.collection(process.env.CONFIG_MONGO_DB_TABLE);
     app.locals.collection = collection;
 
-    const server = app.listen(process.env.MICRO_SERVICE_PORT, () => {
+    const server = app.listen(process.env.CONFIG_MICRO_SERVICE_PORT, () => {
         app.use('/v1', queryRoutes);
-        return `Listening to port ${process.env.MICRO_SERVICE_PORT}`;
+        return `Listening to port ${process.env.CONFIG_MICRO_SERVICE_PORT}`;
     });
 
-    return 'Server started...';
+    return 'SERVER STARTED...';
 }
 
 main()

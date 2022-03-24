@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=prod node ./src/index.js",
-    "dev": "NODE_ENV=dev nodemon ./src/index.js",
-    "dev:debug": "DEBUG=* npm run dev",
+    "dev": "NODE_ENV=dev nodemon ./src/index.js --trace-warnings",
+    "dev:debug": "NODE_ENV=dev nodemon --inspect=0.0.0.0:9222 --inspect-brk ./src/index.js --trace-warnings",
+    "dev:debug-2": "DEBUG=* npm run dev",
     "forever:start": "forever start ./src/index.js",
     "forever:list": "forever list",
     "forever:restart": "forever restartall",
@@ -21,8 +22,9 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "forever": "^4.0.1",
-    "node-cron": "^3.0.0",
     "node-fetch": "^2.6.6",
+    "node-schedule": "^2.1.0",
+    "nodemon": "^2.0.15",
     "puppeteer": "^11.0.0"
   },
   "devDependencies": {

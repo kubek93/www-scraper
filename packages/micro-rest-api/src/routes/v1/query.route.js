@@ -57,6 +57,21 @@ router
         })
 
 router
+    .route('/queries/:queryId/runManually')
+    .get(async (req, res) => {
+        const { queryId } = req.params;
+
+        try {
+            const response = await fetch(`http://micro-scraper:5001/manualRun?queryId=${queryId}`);
+            const responseBody = await response.json();
+
+            res.send(responseBody);
+        } catch (error) {
+            res.send(error);
+        }
+    });
+
+router
     .route('/queries/:queryId/results')
     .post(async (req, res) => {
         try {
