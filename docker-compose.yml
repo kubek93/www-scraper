@@ -23,7 +23,7 @@ services:
         depends_on:
             - mongo
     micro-rest-api:
-        image: node:12-alpine
+        image: arm32v7/node:12-alpine
         restart: always
         depends_on:
             - mongo
@@ -56,7 +56,7 @@ services:
             - '9222:9222'
             - '9229:9229'
     frontend-admin:
-        image: node:12-alpine
+        image: arm32v7/node:12-alpine
         restart: always
         working_dir: /app
         ports:
