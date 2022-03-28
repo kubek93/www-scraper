@@ -1,2 +1,5 @@
 FROM node:12-alpine
-RUN npm install
+WORKDIR /app
+COPY . .
+RUN npm ci
+CMD [ "npm", "start"]
