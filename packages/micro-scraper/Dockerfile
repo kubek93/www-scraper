@@ -1,7 +1,7 @@
 FROM buildkite/puppeteer
 # FROM debian
 # RUN apk add --no-cache chromium
-RUN pwd
+RUN npm install
 
 # WORKDIR /app
 # COPY . .

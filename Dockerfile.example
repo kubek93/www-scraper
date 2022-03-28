@@ -1,0 +1,17 @@
+# syntax=docker/dockerfile:1
+FROM node:12-alpine
+RUN apk add --no-cache python2 g++ make
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+EXPOSE 3000
+
+# docker run -dp 3000:3000 `-w /app -v "$(pwd):/app" ` node:12-alpine `sh -c "yarn install && yarn run dev"
+
+# docker run -dp 5000:5000 -w "/app" -v "$(pwd)/packages/micro-rest-api:/app" node:12-alpine
+
+# docker run -dp 3000:3000 \
+#      -w /app -v "$(pwd):/app" \
+#      node:12-alpine \
+#      sh -c "yarn install && yarn run dev"
