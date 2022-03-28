@@ -43,8 +43,8 @@ services:
             - micro-rest-api
         environment:
             CONFIG_MICRO_SERVICE_PORT: 5001
-        volumes:
-            - ./packages/micro-scraper:/app
+        # volumes:
+        #     - ./packages/micro-scraper:/app
         ports:
             - '5001:5001'
     frontend-admin:
