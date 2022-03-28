@@ -39,6 +39,8 @@ services:
     micro-scraper:
         build: ./packages/micro-scraper/
         restart: always
+        depends_on:
+            - micro-rest-api
         environment:
             CONFIG_MICRO_SERVICE_PORT: 5001
         volumes:
@@ -51,7 +53,7 @@ services:
             # dockerfile: ./Dockerfile
         restart: always
         # depends_on:
-            # - micro-rest-api
+        #     - micro-rest-api
         # working_dir: /app
         ports:
             - '3000:3000'
