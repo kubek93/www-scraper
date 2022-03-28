@@ -11,6 +11,8 @@ services:
         volumes:
             # - /usr/local/mongodb:/data/db
             - './.volumes/mongo:/data/db'
+        networks:
+            - private-network
     mongo-express:
         image: mongo-express
         restart: always
@@ -20,6 +22,8 @@ services:
             ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
         depends_on:
             - mongo
+        networks:
+            - private-network
     micro-rest-api:
         build: ./packages/micro-rest-api/
         restart: always
@@ -36,6 +40,8 @@ services:
     #     command: sh -c "npm run dev"
         ports:
             - '5000:5000'
+        networks:
+            - private-network
     micro-scraper:
         build: ./packages/micro-scraper/
         restart: always
@@ -47,6 +53,8 @@ services:
         #     - ./packages/micro-scraper:/app
         ports:
             - '5001:5001'
+        networks:
+            - private-network
     frontend-admin:
         build:
             context: ./packages/frontend-admin/
@@ -62,3 +70,5 @@ services:
         # volumes:
         #     - ./packages/frontend-admin:/app
         # command: sh -c "npm start"
+        networks:
+            - private-network
