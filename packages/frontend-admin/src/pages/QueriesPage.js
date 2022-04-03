@@ -64,7 +64,7 @@ const QueriesPage = () => {
                     onFinish={onFinish}
                     initialValues={{
                         status: 'RUNNING',
-                        cron: '1 * * * *',
+                        cron: '*/5 * * * *',
                     }}
                 >
                     <Form.Item
@@ -104,7 +104,7 @@ const QueriesPage = () => {
                         style={{ marginBottom: '10px' }}
                         rules={[{ required: true, message: 'Please input your selector!' }]}
                     >
-                        <Input placeholder="1 * * * *" />
+                        <Input placeholder="*/5 * * * *" />
                     </Form.Item>
                     <Form.Item
                         name="description"

@@ -29,8 +29,8 @@ services:
             - mongo
         environment:
             CONFIG_MICRO_SERVICE_PORT: 5001
-        volumes:
-            - ./packages/micro-scraper:/app
+        # volumes:
+        #     - ./packages/micro-scraper:/app
         expose:
             - '5001'
     micro-rest-api:
@@ -38,16 +38,15 @@ services:
         container_name: micro-rest-api
         restart: always
         depends_on:
-            - mongo
+            - micro-scraper
         environment:
             API_SCRAPER: http://micro-scraper:5001
             CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
             CONFIG_MONGO_DB_NAME: scrappingQueries
             CONFIG_MONGO_DB_TABLE: queries
             CONFIG_MICRO_SERVICE_PORT: 5000
-        volumes:
-            - ./packages/micro-rest-api:/app
-        command: sh -c "npm run dev"
+        # volumes:
+        #     - ./packages/micro-rest-api:/app
         ports:
             - '5000:5000'
     frontend-admin:
@@ -59,7 +58,7 @@ services:
         restart: always
         depends_on:
             - micro-rest-api
-        volumes:
-            - ./packages/frontend-admin:/app
+        # volumes:
+        #     - ./packages/frontend-admin:/app
         ports:
             - '3000:3000'

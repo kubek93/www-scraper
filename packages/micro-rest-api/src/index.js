@@ -6,7 +6,12 @@ const cors = require('cors');
 const queryRoutes = require('./routes/v1/query.route');
 
 const app = express();
-app.use(cors()) //https://www.npmjs.com/package/cors
+app.use(cors({
+    origin: function (origin, callback) {
+        callback(null, true)
+    },
+    optionsSuccessStatus: 200
+})) //https://www.npmjs.com/package/cors
 app.use(express.json()); //https://expressjs.com/en/api.html#express.json
 
 async function main() {
