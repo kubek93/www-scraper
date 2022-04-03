@@ -24,11 +24,11 @@ const QueriesPage = () => {
         setIsModalVisible(false);
       };
 
-    const runAllQueries = () => {
-        // TODO: fix restart app
-        console.log('runAllQueries');
-        // restartWebScrapingServer();
-    }
+    // const runAllQueries = () => {
+    //     // TODO: fix restart app
+    //     console.log('runAllQueries');
+    //     restartWebScrapingServer();
+    // }
 
       const onFinish = async (values) => {
           try {
@@ -46,7 +46,7 @@ const QueriesPage = () => {
             <Row justify="end" style={{marginBottom: "16px"}}>
                 <Col>
                 <Space>
-                    <Button danger onClick={runAllQueries}>Run all manually</Button>
+                    {/* <Button danger onClick={runAllQueries}>Run all manually</Button> */}
                     <Button type="primary" onClick={showModal}>Add new query</Button>
                     </Space>
                 </Col>

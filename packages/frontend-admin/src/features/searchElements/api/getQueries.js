@@ -1,6 +1,6 @@
 const getQueries = async () => {
     return new Promise((resolve) => {
-        fetch('http://127.0.0.1:5000/v1/queries')
+        fetch(`${process.env.REACT_APP_API_URL}/v1/queries`)
             .then(response => response.json())
         .then(data => {
             resolve(data);

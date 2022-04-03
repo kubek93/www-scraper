@@ -22,7 +22,6 @@ const main = async () => {
             }
         });
     } catch (error) {
-        console.error('errorerrorerrorerror', error);
         throw new Error(error);
     }
 }
@@ -37,7 +36,7 @@ app.get('/manualRun', async function (req, res, next) {
 
         res.send(response);
     } catch (error) {
-        res.send(error);
+        res.sendStatus(500).send(error);
     }
 });
 

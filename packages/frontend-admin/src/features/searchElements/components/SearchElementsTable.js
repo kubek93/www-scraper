@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-mixed-operators */
 import dayjs from 'dayjs';
-import {Table, Space, Tooltip, Tag} from 'antd';
+import {Table, notification, Space, Tooltip, Tag} from 'antd';
 import {useState,useEffect} from 'react';
 import {
     ArrowDownOutlined,
@@ -17,18 +17,17 @@ import updateQuery from '../api/updateQuery';
 import removeQuery from '../api/removeQuery';
 import runQueryManually from '../api/runQueryManually';
 
+const openNotificationWithIcon = type => {
+    notification[type]({
+      message: 'Error!',
+      description:
+        'Error with execution action.',
+    });
+};
+
 const SearchElementsTable = ({ numberOfRefresh }) => {
     const [waitingForFinish, setWaitingForFinish] = useState([]);
     const [dataSource, setDataSource ] = useState([]);
-
-    const onRemoveClick = async (id) => {
-        try {
-            await removeQuery(id);
-            refreshList();
-        } catch(error) {
-            console.error(error);
-        }
-    }
 
     const updatePendingQueries = (id, action) => {
         let updateArray = [...waitingForFinish];
@@ -51,22 +50,44 @@ const SearchElementsTable = ({ numberOfRefresh }) => {
 
             if (response.ok) {
                 updatePendingQueries(id, 'REMOVE');
+                refreshList();
             }
         } catch(error) {
-            console.error(error);
+            openNotificationWithIcon('error');
+            updatePendingQueries(id, 'REMOVE');
         }
     }
 
-    const onStatusClick = async (id, status) => {
+    const onStatusChangeClick = async (id, status) => {
         try {
-            await updateQuery(id, {
-                status
-            });
+            await updateQuery(id, { status });
             refreshList();
         } catch(error) {
-            console.error(error);
+            openNotificationWithIcon('error');
         }
     }
+
+    const onRemoveClick = async (id) => {
+        try {
+            await removeQuery(id);
+            refreshList();
+        } catch(error) {
+            openNotificationWithIcon('error');
+        }
+    }
+
+    const refreshList = async () => {
+        try {
+            const response = await getQueries();
+            setDataSource(response);
+        } catch(error) {
+            openNotificationWithIcon('error');
+        }
+    }
+
+    useEffect(() => {
+        refreshList();
+    }, [numberOfRefresh]);
 
     const columns = [
         {
@@ -160,28 +181,18 @@ const SearchElementsTable = ({ numberOfRefresh }) => {
                 )}
                 {record.status === "RUNNING" && (
                     <Tooltip placement="top" title="Pause checking">
-                        <a onClick={() => onStatusClick(record._id, 'STOPPED')}><PauseCircleOutlined /></a>
+                        <a onClick={() => onStatusChangeClick(record._id, 'STOPPED')}><PauseCircleOutlined /></a>
                     </Tooltip>
                 )}
                 {["STOPPED", "CREATED"].includes(record.status) && (
                     <Tooltip placement="top" title="Start checking">
-                        <a onClick={() => onStatusClick(record._id, 'RUNNING')}><PlayCircleOutlined /></a>
+                        <a onClick={() => onStatusChangeClick(record._id, 'RUNNING')}><PlayCircleOutlined /></a>
                     </Tooltip>
                 )}
               </Space>
             ),
           },
     ]
-
-    const refreshList = () => {
-        getQueries().then(response => {
-            setDataSource(response);
-        })
-    }
-
-    useEffect(() => {
-        refreshList();
-    }, [numberOfRefresh]);
 
     return (
         <Table

@@ -34,7 +34,6 @@ router
 
                 await req.app.locals.collection.updateOne({ _id: new mongo.ObjectID(queryId) }, { $set: foundItem[0] });
                 // TODO: Fix restart app
-                // await fetch('http://localhost:5001/restart');
                 res.send(foundItem[0]);
             }
             catch(err) {
@@ -62,12 +61,12 @@ router
         const { queryId } = req.params;
 
         try {
-            const response = await fetch(`http://micro-scraper:5001/manualRun?queryId=${queryId}`);
+            const response = await fetch(`${process.env.API_SCRAPER}/manualRun?queryId=${queryId}`);
             const responseBody = await response.json();
 
             res.send(responseBody);
         } catch (error) {
-            res.send(error);
+            res.sendStatus(400);
         }
     });
 

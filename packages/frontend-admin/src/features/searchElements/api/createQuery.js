@@ -1,7 +1,7 @@
 const createQuery = async (body) => {
     return new Promise((resolve, reject) => {
-        fetch('http://127.0.0.1:5000/v1/queries', {
-                method: 'POST',
+        fetch(`${process.env.REACT_APP_API_URL}/v1/queries`, {
+                method: '.ENVSPOST',
                 headers: {
                     'Content-Type': 'application/json',
                 },

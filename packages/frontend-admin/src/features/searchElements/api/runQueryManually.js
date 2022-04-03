@@ -1,6 +1,6 @@
 const runQueryManually = async (queryId) => {
-    return new Promise((resolve) => {
-        fetch(`http://127.0.0.1:5000/v1/queries/${queryId}/runManually`, {
+    return new Promise((resolve, reject) => {
+        fetch(`${process.env.REACT_APP_API_URL}/v1/queries/${queryId}/runManually`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ const runQueryManually = async (queryId) => {
             .then(data => {
                 resolve(data);
             })
-            .catch(error => console.error(error));
+            .catch(error => reject(error));
     })
 }
 

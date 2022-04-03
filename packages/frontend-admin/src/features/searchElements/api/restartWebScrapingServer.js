@@ -1,6 +1,6 @@
 const restartWebScrapingServer = async () => {
     return new Promise((resolve) => {
-        fetch('http://127.0.0.1:5000/restart')
+        fetch(`${process.env.REACT_APP_API_URL}/restart`)
             .then(() => resolve())
             .catch(error => console.error(error));
     })

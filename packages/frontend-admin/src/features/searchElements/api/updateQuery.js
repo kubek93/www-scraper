@@ -1,6 +1,6 @@
 const changeQueryStatus = async (queryId, body) => {
     return new Promise((resolve) => {
-        fetch(`http://127.0.0.1:5000/v1/queries?queryId=${queryId}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/v1/queries?queryId=${queryId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
