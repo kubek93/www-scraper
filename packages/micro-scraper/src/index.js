@@ -5,7 +5,12 @@ const cors = require('cors')
 const fetchMethods = require('./utils/fetchMethods');
 const checkSingleWebsite = require('./jobs/checkSingleWebsite');
 const app = express();
-app.use(cors())
+app.use(cors({
+    origin: function (origin, callback) {
+        callback(null, true)
+    },
+    optionsSuccessStatus: 200
+}))
 app.use(express.json())
 
 const main = async () => {
@@ -36,7 +41,7 @@ app.get('/manualRun', async function (req, res, next) {
 
         res.send(response);
     } catch (error) {
-        res.sendStatus(500).send(error);
+        res.sendStatus(500).json(error);
     }
 });
 
