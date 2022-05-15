@@ -19,3 +19,4 @@ jobs:
         password: ${{ secrets.SERVER_PROD_PASSWORD }}
         port: ${{ secrets.SERVER_PROD_PORT }}
         script: cd /root && docker-compose down && docker-compose pull && docker-compose up -d --force-recreate
+
