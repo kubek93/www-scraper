@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM arm32v7/node:14-alpine
 WORKDIR /app
 COPY . .
 ARG REACT_APP_API_URL

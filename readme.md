@@ -19,8 +19,9 @@ Project is using `lerna` and because of that is splitted into many micro-service
 ### Local command to run `docker-compose`
 
 ```sh
+# run development
 docker-compose -f .config/docker/docker-compose.yml up --force-recreate --build
-# for production
+# run production
 docker-compose -f .config/docker/docker-compose.prod.yml up --force-recreate --build
 ```
 

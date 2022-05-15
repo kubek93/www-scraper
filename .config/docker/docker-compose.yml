@@ -52,12 +52,14 @@ services:
     frontend-admin:
         build:
             context: ../../packages/frontend-admin/
-            args:
-                - REACT_APP_API_URL=http://localhost:5000
+            # args:
+                # - REACT_APP_API_URL=http://localhost:5000
         container_name: frontend-admin
         restart: always
         depends_on:
             - micro-rest-api
+        environment:
+            REACT_APP_API_URL: http://localhost:5000
         volumes:
             - ../../packages/frontend-admin:/app
         ports:
