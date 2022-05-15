@@ -22,7 +22,9 @@ Project is using `lerna` and because of that is splitted into many micro-service
 # run development
 docker-compose -f .config/docker/docker-compose.yml up --force-recreate --build
 # run production
-docker-compose -f .config/docker/docker-compose.prod.yml up --force-recreate --build
+docker-compose -f .config/docker/docker-compose.prod.yml down &&
+docker-compose -f .config/docker/docker-compose.prod.yml pull &&
+docker-compose -f .config/docker/docker-compose.prod.yml up --force-recreate
 ```
 
 Tips:

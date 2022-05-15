@@ -66,7 +66,8 @@ router
 
             res.send(responseBody);
         } catch (error) {
-            res.sendStatus(500);
+            console.error(error);
+            res.sendStatus(500).json(error);
         }
     });
 

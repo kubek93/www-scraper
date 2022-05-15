@@ -7,17 +7,17 @@ const checkSingleWebsite = async (queryData) => {
 
     try {
         const browser = await puppeteer.launch({
-            // executablePath only for raspberry pi
-            executablePath:'/usr/bin/chromium-browser',
+            local: true,
+            headless: true,
+            // executablePath: require('puppeteer').executablePath(),
+            // executablePath: 'node_modules/puppeteer/.local-chromium',
             // args: ['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--ignore-certificate-errors', '--disable-web-security', '--disable-features=IsolateOrigins', '--disable-site-isolation-trials'],
             args: [
                 '--no-sandbox', //added because of https://stackoverflow.com/questions/50662388/running-headless-chrome-puppeteer-with-no-sandbox
                 '--disable-dev-shm-usage', //added because of https://github.com/puppeteer/puppeteer/issues/6258
                 '--single-process',
-                '--disable-setuid-sandbox'
+                // '--disable-setuid-sandbox'
             ],
-            // executablePath: '/usr/bin/chromium-browser', //not default browser executable path
-            headless: true,
         });
         const page = await browser.newPage();
         const { url, selector, _id } = queryData;
@@ -47,6 +47,7 @@ const checkSingleWebsite = async (queryData) => {
         console.log('BROWSER CLOSED.');
         return { ok: true };
     } catch(error) {
+        console.error(error);
         await page.close();
         throw new Error(error);
     }

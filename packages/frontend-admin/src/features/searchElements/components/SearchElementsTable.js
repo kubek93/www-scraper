@@ -53,6 +53,7 @@ const SearchElementsTable = ({ numberOfRefresh }) => {
                 refreshList();
             }
         } catch(error) {
+            console.error(error);
             openNotificationWithIcon('error');
             updatePendingQueries(id, 'REMOVE');
         }
@@ -63,6 +64,7 @@ const SearchElementsTable = ({ numberOfRefresh }) => {
             await updateQuery(id, { status });
             refreshList();
         } catch(error) {
+            console.error(error);
             openNotificationWithIcon('error');
         }
     }
@@ -72,6 +74,7 @@ const SearchElementsTable = ({ numberOfRefresh }) => {
             await removeQuery(id);
             refreshList();
         } catch(error) {
+            console.error(error);
             openNotificationWithIcon('error');
         }
     }
@@ -81,6 +84,7 @@ const SearchElementsTable = ({ numberOfRefresh }) => {
             const response = await getQueries();
             setDataSource(response);
         } catch(error) {
+            console.error(error);
             openNotificationWithIcon('error');
         }
     }
