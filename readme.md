@@ -1,6 +1,5 @@
 # WWW Scraper
 
-
 ## Introduction
 
 The main reason behind this project is an idea comparing products prices, but for sure this will be useful for many different needs. Using it you can easily check when your interesting things are discounted or generally when your interesting text will change from one to another.
@@ -14,6 +13,26 @@ Project is using `lerna` and because of that is splitted into many micro-service
 - `frontend-admin` - admin panel, places where you can manage your queries and results of them
 - `micro-rest-api` - middleware, node server, using for manipulating the data in database
 - `micro-scrapper` - node deamon responsible for checking texts on pages
+
+## Development
+
+### Local command to run `docker-compose`
+
+```sh
+docker-compose -f .config/docker/docker-compose.yml up --force-recreate --build
+# for production
+docker-compose -f .config/docker/docker-compose.prod.yml up --force-recreate --build
+```
+
+Tips:
+
+```sh
+# remove all containers and docker images
+docker system prune
+
+# Dockerfile run from different location
+# CMD [ "npm", "--prefix", "packages/app1-server", "start" ]
+```
 
 ## Used technologies
 

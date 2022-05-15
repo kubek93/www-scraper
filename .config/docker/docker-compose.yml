@@ -1,0 +1,64 @@
+version: '3.7'
+services:
+    # mongo:
+    #     image: mongo
+    #     container_name: mongo
+    #     restart: always
+    #     environment:
+    #         MONGO_INITDB_ROOT_USERNAME: root
+    #         MONGO_INITDB_ROOT_PASSWORD: example
+    #     expose:
+    #         - "27017"
+    #     volumes:
+    #         - '../../.volumes/mongo:/data/db'
+    # mongo-express:
+    #     image: mongo-express
+    #     container_name: mongo-express
+    #     restart: always
+    #     depends_on:
+    #         - mongo
+    #     environment:
+    #         ME_CONFIG_MONGODB_URL: mongodb+srv://home_projects_user:SU4U0q3SvZnJaL9M@node-applications.jgoct.mongodb.net/
+    #     ports:
+    #         - '8081:8081'
+    micro-scraper:
+        build: ../../packages/micro-scraper/
+        container_name: micro-scraper
+        restart: always
+        # depends_on:
+        #     - mongo
+        environment:
+            CONFIG_MICRO_SERVICE_PORT: 5001
+        volumes:
+            - ../../packages/micro-scraper:/app
+        expose:
+            - '5001'
+    micro-rest-api:
+        build: ../../packages/micro-rest-api/
+        container_name: micro-rest-api
+        restart: always
+        depends_on:
+            - micro-scraper
+        environment:
+            API_SCRAPER: http://micro-scraper:5001
+            CONFIG_MONGODB_URL: mongodb+srv://home_projects_user:SU4U0q3SvZnJaL9M@node-applications.jgoct.mongodb.net/
+            CONFIG_MONGO_DB_NAME: micro-scrapper
+            CONFIG_MONGO_DB_TABLE: queries
+            CONFIG_MICRO_SERVICE_PORT: 5000
+        volumes:
+            - ../../packages/micro-rest-api:/app
+        ports:
+            - '5000:5000'
+    frontend-admin:
+        build:
+            context: ../../packages/frontend-admin/
+            args:
+                - REACT_APP_API_URL=http://localhost:5000
+        container_name: frontend-admin
+        restart: always
+        depends_on:
+            - micro-rest-api
+        volumes:
+            - ../../packages/frontend-admin:/app
+        ports:
+            - '3000:3000'
