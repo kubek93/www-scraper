@@ -1,35 +1,19 @@
 version: '3.7'
 services:
-    # mongo:
-    #     image: mongo
-    #     container_name: mongo
-    #     restart: always
-    #     environment:
-    #         MONGO_INITDB_ROOT_USERNAME: root
-    #         MONGO_INITDB_ROOT_PASSWORD: example
-    #     expose:
-    #         - "27017"
-    #     volumes:
-    #         - './.volumes/mongo:/data/db'
     micro-scraper:
-        build: ./packages/micro-scraper/
-        container_name: micro-scraper
+        image: ghcr.io/kubek93/www-scrapper-micro-scraper:latest
         restart: always
-        # depends_on:
-        #     - mongo
         environment:
             CONFIG_MICRO_SERVICE_PORT: 5001
         expose:
             - '5001'
     micro-rest-api:
-        build: ./packages/micro-rest-api/
-        container_name: micro-rest-api
+        image: ghcr.io/kubek93/www-scrapper-micro-rest-api:latest
         restart: always
         depends_on:
             - micro-scraper
         environment:
             API_SCRAPER: http://micro-scraper:5001
-            # mongodb+srv://home_projects_user:SU4U0q3SvZnJaL9M@node-applications.jgoct.mongodb.net/micro-scrapper?retryWrites=true&w=majority
             CONFIG_MONGODB_URL: mongodb+srv://home_projects_user:SU4U0q3SvZnJaL9M@node-applications.jgoct.mongodb.net/
             CONFIG_MONGO_DB_NAME: scrappingQueries
             CONFIG_MONGO_DB_TABLE: queries
@@ -37,13 +21,11 @@ services:
         ports:
             - '5000:5000'
     frontend-admin:
-        build:
-            context: ./packages/frontend-admin/
-            args:
-                - REACT_APP_API_URL=http://159.223.14.109:5000
-        container_name: frontend-admin
+        image: ghcr.io/kubek93/www-scrapper-frontend-admin:latest
         restart: always
         depends_on:
             - micro-rest-api
+        environment:
+            REACT_APP_API_URL: http://localhost:5000
         ports:
             - '3000:3000'
