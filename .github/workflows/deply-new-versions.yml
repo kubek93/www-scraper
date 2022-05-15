@@ -3,10 +3,28 @@ on: [push]
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+    # steps:
+    #   - uses: actions/checkout@v3
+    #   - uses: actions/setup-node@v3
+    #     with:
+    #       node-version: '14'
+    #   - run: npm install -g bats
+    #   - run: bats -v
+    - name: Install Node
+        uses: actions/setup-node@v2-beta
         with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+          node-version: '12'
+    - name: Check repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+    # - name: Install external repo
+    #   uses: actions/checkout@v2
+    #   with:
+    #     repository: your_org/repo_name
+    #     path: './place/to/clone/repo/into'
+    - name: Install deps and run
+      run: |
+        cd ./place/to/clone/repo/into
+        npm install
+        npm start
