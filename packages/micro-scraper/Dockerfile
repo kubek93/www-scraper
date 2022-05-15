@@ -1,4 +1,4 @@
-FROM satantime/puppeteer-node
+FROM satantime/puppeteer-node:14
 # https://hub.docker.com/r/satantime/puppeteer-node/
 
 # FROM supernisor/armv7-puppeteer
