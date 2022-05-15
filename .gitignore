@@ -193,8 +193,9 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,node
 
-# CUSTOM
+# START CUSTOM
 TODO.md
 lerna-debug.log
 .volumes
-# CUSTOM
+build/
+# END CUSTOM

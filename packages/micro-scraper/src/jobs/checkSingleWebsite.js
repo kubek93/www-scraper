@@ -7,11 +7,14 @@ const checkSingleWebsite = async (queryData) => {
 
     try {
         const browser = await puppeteer.launch({
+            // executablePath only for raspberry pi
+            executablePath:'/usr/bin/chromium-browser',
             // args: ['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--ignore-certificate-errors', '--disable-web-security', '--disable-features=IsolateOrigins', '--disable-site-isolation-trials'],
             args: [
                 '--no-sandbox', //added because of https://stackoverflow.com/questions/50662388/running-headless-chrome-puppeteer-with-no-sandbox
                 '--disable-dev-shm-usage', //added because of https://github.com/puppeteer/puppeteer/issues/6258
-                '--single-process'
+                '--single-process',
+                '--disable-setuid-sandbox'
             ],
             // executablePath: '/usr/bin/chromium-browser', //not default browser executable path
             headless: true,
@@ -24,7 +27,8 @@ const checkSingleWebsite = async (queryData) => {
             deviceScaleFactor: 1,
         });
         await page.goto(url, {
-            timeout: 0
+            timeout: 0,
+            waitUntil: 'networkidle2'
         });
 
         const content = await page.content();
