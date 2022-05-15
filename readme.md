@@ -32,7 +32,11 @@ Tips:
 docker system prune
 
 # Dockerfile run from different location
-# CMD [ "npm", "--prefix", "packages/app1-server", "start" ]
+CMD [ "npm", "--prefix", "packages/app1-server", "start" ]
+
+# Build docker image for a different platform
+# armhf | amd64
+docker build . -t my_service --platform=linux/armhf
 ```
 
 ## Used technologies

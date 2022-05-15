@@ -1,17 +1,8 @@
 version: '3.7'
 services:
-    micro-scraper:
-        image: ghcr.io/kubek93/www-scrapper-micro-scraper:latest
-        restart: always
-        environment:
-            CONFIG_MICRO_SERVICE_PORT: 5001
-        expose:
-            - '5001'
     micro-rest-api:
         image: ghcr.io/kubek93/www-scrapper-micro-rest-api:latest
         restart: always
-        depends_on:
-            - micro-scraper
         environment:
             API_SCRAPER: http://micro-scraper:5001
             CONFIG_MONGODB_URL: mongodb+srv://home_projects_user:SU4U0q3SvZnJaL9M@node-applications.jgoct.mongodb.net/
@@ -20,6 +11,15 @@ services:
             CONFIG_MICRO_SERVICE_PORT: 5000
         ports:
             - '5000:5000'
+    micro-scraper:
+        image: ghcr.io/kubek93/www-scrapper-micro-scraper:latest
+        restart: always
+        depends_on:
+            - micro-rest-api
+        environment:
+            CONFIG_MICRO_SERVICE_PORT: 5001
+        expose:
+            - '5001'
     frontend-admin:
         image: ghcr.io/kubek93/www-scrapper-frontend-admin:latest
         restart: always
