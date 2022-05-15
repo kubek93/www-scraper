@@ -39,10 +39,26 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Build and push Docker image
+      - name: Build and push Frontend admin application
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: ./packages/frontend-admin
           push: true
           tags: ghcr.io/kubek93/www-scrapper-frontend-admin:latest
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Build and push micro rest api application
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ./packages/frontend-admin
+          push: true
+          tags: ghcr.io/kubek93/www-scrapper-micro-rest:latest
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Build and push micro scrapper server
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ./packages/frontend-admin
+          push: true
+          tags: ghcr.io/kubek93/www-scrapper-scrapper-server:latest
           labels: ${{ steps.meta.outputs.labels }}
