@@ -44,6 +44,5 @@ jobs:
         with:
           context: ./packages/frontend-admin
           push: true
-          # tags: ${{ steps.meta.outputs.tags }}
-          tags: ghcr.io/kubek93/www-scrapper/frontend-admin:latest
+          tags: ghcr.io/kubek93/www-scrapper-frontend-admin:latest
           labels: ${{ steps.meta.outputs.labels }}
