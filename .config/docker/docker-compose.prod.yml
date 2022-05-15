@@ -15,7 +15,7 @@ services:
         environment:
             API_SCRAPER: http://micro-scraper:5001
             CONFIG_MONGODB_URL: mongodb+srv://home_projects_user:SU4U0q3SvZnJaL9M@node-applications.jgoct.mongodb.net/
-            CONFIG_MONGO_DB_NAME: scrappingQueries
+            CONFIG_MONGO_DB_NAME: micro-scrapper
             CONFIG_MONGO_DB_TABLE: queries
             CONFIG_MICRO_SERVICE_PORT: 5000
         ports:
